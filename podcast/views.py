@@ -20,6 +20,7 @@ episode_detail = EpisodeDetail.as_view()
 
 class EpisodeList(ListView):
     model = Episode
+    paginate_by = 12
 
     def get_queryset(self):
         return self.model.objects.published().filter(show__slug__exact=self.kwargs['slug']).order_by('-date')
