@@ -41,14 +41,14 @@ class EnclosureInline(admin.StackedInline):
     extra = 1
     fieldsets = (
         (None, {
-            'fields': ('title', 'file', 'mime', 'medium', 'expression', 'frame', 'bitrate', 'sample', 'channel', 'algo', 'hash', 'player', 'embed', ('width', 'height')),
+            'fields': ('title', 'url', 'size', 'mime', 'medium', 'expression', 'frame', 'bitrate', 'sample', 'channel', 'algo', 'hash', 'player', 'embed', ('width', 'height')),
             'description': ('Only the last <em>saved</em> enclosure is displayed in plain RSS and iTunes feeds')
         }),
     )
 
 
 class EnclosureAdmin(admin.ModelAdmin):
-    list_display = ('title', 'file', 'player', 'mime')
+    list_display = ('title', 'url', 'player', 'mime')
     list_filter = ('mime',)
 
 
