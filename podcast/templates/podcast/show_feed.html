@@ -24,7 +24,7 @@
         <itunes:email>{% for author in object.author.all %}{{ author.email }}{% if forloop.last %}{% else %}, {% endif %}{% endfor %}</itunes:email>
     </itunes:owner>
     {% if object.subtitle %}<itunes:subtitle>{{ object.subtitle }}</itunes:subtitle>{% endif %}
-    <itunes:summary><![CDATA[{% if object.summary %}{{ object.summary|safe }}{% else %}{{ object.description|safe }}{% endif %}]]></itunes:summary>
+    <itunes:summary>{% if object.summary %}{{ object.summary|striptags }}{% else %}{{ object.description|striptags }}{% endif %}</itunes:summary>
     {% if object.image %}<itunes:image href="{{ object.image.url }}" />{% endif %}
     {% if object.category.all %}{% for category in object.category.all %}{% if category.name %}<itunes:category text="{{ category.parent.name }}">
       <itunes:category text="{{ category.name }}" />
