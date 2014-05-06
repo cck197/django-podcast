@@ -8,7 +8,7 @@
         <priority>{{ episode.priority }}</priority>
         <video:video>
             {% for enclosure in episode.enclosure_set.all %}
-              <video:content_loc>{{ enclosure.file.url }}</video:content_loc>
+              <video:content_loc>{{ enclosure.url }}</video:content_loc>
             {% endfor %}
             {% for enclosure in episode.enclosure_set.all %}
             <video:player_loc allow_embed="{% if enclosure.embed %}Yes{% else %}No{% endif %}">{{ enclosure.player }}</video:player_loc>{% endfor %}

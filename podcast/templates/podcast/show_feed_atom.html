@@ -10,7 +10,7 @@
     {% for episode in object.episode_set.published %}
     <entry>
         <title>{{ episode.title }}</title>
-        <link href="{{ episode.enclosure_set.all.0.file.url }}"/>
+        <link href="{{ episode.enclosure_set.all.0.url }}"/>
         <id>urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a</id>
         <updated>{{ episode.date|date:"Y-m-d" }}T{{ episode.date|date:"H:i:s" }}Z</updated>
         <summary>{% if episode.summary %}{{ episode.summary }}{% else %}{{ episode.description }}{% endif %}</summary>

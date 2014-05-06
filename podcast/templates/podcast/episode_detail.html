@@ -37,7 +37,7 @@ Django Podcast Episode Detail
 
 <ul>
   {% for enclosure in enclosure_list %}
-  <li><a href="{{ enclosure.file.url }}"><strong>{% if enclosure.title %}{{ enclosure.title }}{% else %}{{ object.title }}{% endif %}</strong></a> ({{ enclosure.file.size|filesizeformat }})</li>
+  <li><a href="{{ enclosure.url }}"><strong>{% if enclosure.title %}{{ enclosure.title }}{% else %}{{ object.title }}{% endif %}</strong></a> ({{ enclosure.size|filesizeformat }})</li>
   {% endfor %}
 </ul>
 

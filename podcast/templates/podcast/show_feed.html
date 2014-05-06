@@ -3,7 +3,7 @@
 <channel>
     <title>{{ object.title }}</title>
     <link>{{ object.link }}</link>
-    <description>{{ object.description|striptags }}</description>
+    <description><![CDATA[{{ object.description|safe }}]]></description>
     {% if object.language %}<language>{{ object.language }}</language>{% endif %}
     <copyright>&#x2117; &amp; &#xA9; {% now "Y" %} {{ object.organization }}. {{ object.copyright }}.</copyright>
     <managingEditor>{% for author in object.author.all %}{% if forloop.first %}{% else %}{% if forloop.last %} and {% else %}, {% endif %}{% endif %}{{ author.email }}{% endfor %}</managingEditor>
@@ -24,7 +24,7 @@
         <itunes:email>{% for author in object.author.all %}{{ author.email }}{% if forloop.last %}{% else %}, {% endif %}{% endfor %}</itunes:email>
     </itunes:owner>
     {% if object.subtitle %}<itunes:subtitle>{{ object.subtitle }}</itunes:subtitle>{% endif %}
-    <itunes:summary>{% if object.summary %}{{ object.summary|striptags }}{% else %}{{ object.description|striptags }}{% endif %}</itunes:summary>
+    <itunes:summary><![CDATA[{% if object.summary %}{{ object.summary|safe }}{% else %}{{ object.description|safe }}{% endif %}]]></itunes:summary>
     {% if object.image %}<itunes:image href="{{ object.image.url }}" />{% endif %}
     {% if object.category.all %}{% for category in object.category.all %}{% if category.name %}<itunes:category text="{{ category.parent.name }}">
       <itunes:category text="{{ category.name }}" />
@@ -37,16 +37,16 @@
 
     {% for episode in object.episode_set.published %}<item>
         <title>{{ episode.title }}</title>
-        <link>{{ episode.enclosure_set.all.0.file.url }}</link>
-        <description>{{ episode.description|striptags }}</description>
+        <link>{{ episode.enclosure_set.all.0.url }}</link>
+        <description><![CDATA[{{ episode.description|safe }}]]></description>
         <author>{% for author in object.author.all %}{{ author.email }}{% if forloop.last %}{% else %}, {% endif %}{% endfor %}</author>
         {% if episode.category %}<category{% if episode.domain %} url="{{ episode.domain }}"{% endif %}>{{ episode.category }}</category>{% endif %}
-        <enclosure url="{{ episode.enclosure_set.all.0.file.url }}" length="{{ episode.enclosure_set.all.0.file.size }}" type="{{ episode.enclosure_set.all.0.mime }}" />
-        <guid isPermalink="true">{{ episode.enclosure_set.all.0.file.url }}</guid>
+        <enclosure url="{{ episode.enclosure_set.all.0.url }}" length="{{ episode.enclosure_set.all.0.size }}" type="{{ episode.enclosure_set.all.0.mime }}" />
+        <guid isPermalink="true">{{ episode.enclosure_set.all.0.url }}</guid>
         <pubDate>{{ episode.date|date:"r" }} GMT</pubDate>
         <itunes:author>{% for author in episode.author.all %}{% if forloop.first %}{% else %}{% if forloop.last %} and {% else %}, {% endif %}{% endif %}{% if author.first_name or author.last_name %}{% if author.first_name and author.last_name %}{{ author.first_name }} {{ author.last_name }}{% endif %}{% if author.first_name and not author.last_name %}{{ author.first_name }}{% endif %}{% if author.last_name and not author.first_name %}{{ author.last_name }}{% endif %}{% else %}{{ author.username }}{% endif %}{% endfor %}</itunes:author>
         {% if episode.subtitle %}<itunes:subtitle>{{ episode.subtitle }}</itunes:subtitle>{% endif %}
-        <itunes:summary>{% if episode.summary %}{{ episode.summary|striptags }}{% else %}{{ episode.description|striptags }}{% endif %}</itunes:summary>
+        <itunes:summary><![CDATA[{% if episode.summary %}{{ episode.summary|safe }}{% else %}{{ episode.description|safe }}{% endif %}]]></itunes:summary>
         {% if episode.minutes and episode.seconds %}<itunes:duration>{{ episode.minutes }}:{{ episode.seconds }}</itunes:duration>{% endif %}
         {% if episode.keywords %}<itunes:keywords>{{ episode.keywords }}</itunes:keywords>{% endif %}
         {% if episode.explicit %}<itunes:explicit>{{ episode.explicit|lower }}</itunes:explicit>{% endif %}

@@ -544,7 +544,7 @@ class Enclosure(models.Model):
     episode = models.ForeignKey(Episode, help_text='Include any number of media files; for example, perhaps include an iPhone-optimized, AppleTV-optimized and Flash Video set of video files. Note that the iTunes feed only accepts the first file. More uploading is available after clicking "Save and continue editing."')
 
     class Meta:
-        ordering = ['mime', 'url']
+        ordering = ['mime']
 
     '''
     def __unicode__(self):
