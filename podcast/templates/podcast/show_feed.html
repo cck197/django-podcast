@@ -43,7 +43,7 @@
         {% if episode.category %}<category{% if episode.domain %} url="{{ episode.domain }}"{% endif %}>{{ episode.category }}</category>{% endif %}
         <enclosure url="{{ episode.enclosure_set.all.0.url }}" length="{{ episode.enclosure_set.all.0.size }}" type="{{ episode.enclosure_set.all.0.mime }}" />
         <guid isPermalink="true">{{ episode.enclosure_set.all.0.url }}</guid>
-        <pubDate>{{ episode.date|date:"r" }} GMT</pubDate>
+        <pubDate>{{ episode.date|date:"D, d M Y H:m:s" }} GMT</pubDate>
         <itunes:author>{% for author in episode.author.all %}{% if forloop.first %}{% else %}{% if forloop.last %} and {% else %}, {% endif %}{% endif %}{% if author.first_name or author.last_name %}{% if author.first_name and author.last_name %}{{ author.first_name }} {{ author.last_name }}{% endif %}{% if author.first_name and not author.last_name %}{{ author.first_name }}{% endif %}{% if author.last_name and not author.first_name %}{{ author.last_name }}{% endif %}{% else %}{{ author.username }}{% endif %}{% endfor %}</itunes:author>
         {% if episode.subtitle %}<itunes:subtitle>{{ episode.subtitle }}</itunes:subtitle>{% endif %}
         <itunes:summary><![CDATA[{% if episode.summary %}{{ episode.summary|safe }}{% else %}{{ episode.description|safe }}{% endif %}]]></itunes:summary>
