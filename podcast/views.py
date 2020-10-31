@@ -80,7 +80,8 @@ class ShowListAtom(DetailView):
     def get_context_data(self, **kwargs):
         context = super(ShowListAtom, self).get_context_data(**kwargs)
         episodes = self.object.episode_set.published()
-        paginator = Paginator(episodes, self.paginate_by)
+        paginate_by = self.request.GET.get('paginate_by') or self.paginate_by
+        paginator = Paginator(episodes, paginate_by)
 
         page = self.request.GET.get("page")
 
