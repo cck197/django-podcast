@@ -80,10 +80,10 @@ class ShowListAtom(DetailView):
     paginate_by = 10
 
     def get(self, request, *args, **kwargs):
-        url = self.get_object().redirect
-        if url:
-            print('redirecting to: %s' % url)
-            return redirect(url)
+        if kwargs.get("redirect", True):
+            url = self.get_object().redirect
+            if url:
+                return redirect(url)
         return super(ShowListAtom, self).get(request, *args, **kwargs)
 
 

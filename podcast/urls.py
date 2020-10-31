@@ -9,11 +9,16 @@ urlpatterns = patterns('podcast.views',
     url(r'^(?P<slug>[-\w]+)/$', view='episode_list', name='podcast_episodes'),
 
     # Episode list feed by show (RSS 2.0 and iTunes)
-    # Migrate to Libsyn!
     url(r'^(?P<slug>[-\w]+)/feed/$', view='show_list_feed', name='podcast_feed'),
+
+    # As above no redirect
+    url(r'^(?P<slug>[-\w]+)/feed/direct$', view='show_list_feed', name='podcast_feed_direct', kwargs={'redirect': False}),
 
     # Episode list feed by show (Atom)
     url(r'^(?P<slug>[-\w]+)/atom/$', view='show_list_atom', name='podcast_atom'),
+
+    # As above no redirect
+    url(r'^(?P<slug>[-\w]+)/atom/direct$', view='show_list_atom', name='podcast_atom_direct', kwargs={'redirect': False}),
 
     # Episode list feed by show (Media RSS)
     url(r'^(?P<slug>[-\w]+)/media/$', view='show_list_media', name='podcast_media'),
