@@ -10,7 +10,7 @@ urlpatterns = patterns('podcast.views',
 
     # Episode list feed by show (RSS 2.0 and iTunes)
     # Migrate to Libsyn!
-    #url(r'^(?P<slug>[-\w]+)/feed/$', view='show_list_feed', name='podcast_feed'),
+    url(r'^(?P<slug>[-\w]+)/feed/$', view='show_list_feed', name='podcast_feed'),
 
     # Episode list feed by show (Atom)
     url(r'^(?P<slug>[-\w]+)/atom/$', view='show_list_atom', name='podcast_atom'),

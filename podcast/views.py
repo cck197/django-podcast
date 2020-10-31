@@ -1,5 +1,7 @@
 from django.views.generic import DetailView, ListView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import redirect
+
 
 from .models import Enclosure, Episode, Show
 
@@ -76,6 +78,14 @@ class ShowListAtom(DetailView):
     template_name = "podcast/show_feed_atom.html"
     content_type = "application/rss+xml"
     paginate_by = 10
+
+    def get(self, request, *args, **kwargs):
+        url = self.get_object().redirect
+        if url:
+            print('redirecting to: %s' % url)
+            return redirect(url)
+        return super(ShowListAtom, self).get(request, *args, **kwargs)
+
 
     def get_context_data(self, **kwargs):
         context = super(ShowListAtom, self).get_context_data(**kwargs)
